@@ -1,5 +1,6 @@
 package com.bridgelabz.moodanalyser;
 
+import com.sun.tools.javac.tree.DCTree;
 import javafx.scene.chart.ScatterChart;
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,4 +33,14 @@ public class MoodAnalyzerTest {
             Assert.assertEquals("Please enter a valid mood", e.getMessage());
         }
     }
+    @Test
+    public void givenMoodAnalyzer_WhenMessageEmpty_ShouldThrowsException() {
+        try {
+            MoodAnalyzer moodAnalyzer = new MoodAnalyzer(" ");
+            String results = moodAnalyzer.analyzeMood();
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals("Please enter a valid mood", e.getMessage());
+        }
+    }
+
 }
