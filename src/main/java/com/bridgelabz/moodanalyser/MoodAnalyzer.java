@@ -19,7 +19,10 @@ public class MoodAnalyzer {
 
     public String analyzeMood() throws MoodAnalysisException {
         try {
-            if (message.equals("Sad"))
+            if (message.length() == 0) {
+                throw new MoodAnalysisException("Please provide proper message",MoodAnalysisException.ExceptionType.ENTERED_EMPTY);
+            }
+            if (message.equals("I am a Sad Mood"))
                 return "SAD";
             else
                 return "HAPPY";
