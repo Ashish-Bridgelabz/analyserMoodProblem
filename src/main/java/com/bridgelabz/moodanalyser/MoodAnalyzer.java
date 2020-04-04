@@ -3,7 +3,7 @@ package com.bridgelabz.moodanalyser;
 import java.util.Objects;
 
 public class MoodAnalyzer {
-    private String message;
+    public String message;
 
     //NO argument parameters constructor
     public MoodAnalyzer() {
@@ -47,3 +47,4 @@ public class MoodAnalyzer {
         return Objects.hash(message);
     }
 }
+
