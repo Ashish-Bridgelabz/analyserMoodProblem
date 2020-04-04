@@ -2,7 +2,7 @@ package com.bridgelabz.moodanalyser;
 
 public class MoodAnalysisException extends Exception {
     enum ExceptionType {
-        ENTERED_NULL
+        ENTERED_NULL,ENTERED_EMPTY
     }
 
     ExceptionType type;
