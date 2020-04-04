@@ -1,14 +1,17 @@
 package com.bridgelabz.moodanalyser;
 
+import java.util.Objects;
+
 public class MoodAnalyzer {
     private String message;
 
     //NO argument parameters constructor
-    MoodAnalyzer() {
+    public MoodAnalyzer() {
+
     }
 
     //Parameters constructor
-    MoodAnalyzer(String message) {
+    public MoodAnalyzer(String message) {
         this.message = message;
     }
 
@@ -20,14 +23,27 @@ public class MoodAnalyzer {
     public String analyzeMood() throws MoodAnalysisException {
         try {
             if (message.length() == 0) {
-                throw new MoodAnalysisException("Please provide proper message",MoodAnalysisException.ExceptionType.ENTERED_EMPTY);
+                throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_EMPTY, "Please provide proper message");
             }
-            if (message.equals("I am a Sad Mood"))
+            if (message.contains("Sad"))
                 return "SAD";
             else
                 return "HAPPY";
         } catch (NullPointerException e) {
-            throw new MoodAnalysisException("Please enter a valid mood", MoodAnalysisException.ExceptionType.ENTERED_NULL);
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_NULL, "Please provide proper message");
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MoodAnalyzer that = (MoodAnalyzer) o;
+        return Objects.equals(message, that.message);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(message);
     }
 }
