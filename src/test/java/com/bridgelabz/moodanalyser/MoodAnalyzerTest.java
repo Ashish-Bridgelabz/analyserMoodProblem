@@ -5,18 +5,22 @@ import javafx.scene.chart.ScatterChart;
 import org.junit.Assert;
 import org.junit.Test;
 
+
 public class MoodAnalyzerTest {
+    MoodAnalyzer moodAnalyzer;
+    String result;
+
     @Test
     public void givenMessage_WhenProper_ShouldReturnSadMood() throws MoodAnalysisException {
-        MoodAnalyzer moodAnalyzer = new MoodAnalyzer("I am a Sad Mood");
-        String result = moodAnalyzer.analyzeMood();
+        moodAnalyzer = new MoodAnalyzer("I am a Sad Mood");
+        result = moodAnalyzer.analyzeMood();
         Assert.assertEquals("SAD", result);
     }
 
     @Test
     public void givenMoodAnalyzer_WhenMessageNotIncludesSad_ShouldReturnHappy() {
-        MoodAnalyzer moodAnalyzer = new MoodAnalyzer("I am in any mood");
-        String result = null;
+        moodAnalyzer = new MoodAnalyzer("I am in any mood");
+        result = null;
         try {
             result = moodAnalyzer.analyzeMood();
         } catch (MoodAnalysisException e) {
@@ -27,20 +31,40 @@ public class MoodAnalyzerTest {
     @Test
     public void givenMoodAnalyzer_WhenMessageNull_ShouldThrowsException() {
         try {
-            MoodAnalyzer moodAnalyzer = new MoodAnalyzer(null);
-            String results = moodAnalyzer.analyzeMood();
+            moodAnalyzer = new MoodAnalyzer(null);
+
+            result = moodAnalyzer.analyzeMood();
         } catch (MoodAnalysisException e) {
-            Assert.assertEquals("Please enter a valid mood", e.getMessage());
-        }
-    }
-    @Test
-    public void givenMoodAnalyzer_WhenMessageEmpty_ShouldThrowsException() {
-        try {
-            MoodAnalyzer moodAnalyzer = new MoodAnalyzer(" ");
-            String results = moodAnalyzer.analyzeMood();
-        } catch (MoodAnalysisException e) {
-            Assert.assertEquals("Please enter a valid mood", e.getMessage());
+            Assert.assertEquals("Please provide proper message", e.getMessage());
         }
     }
 
+    @Test
+    public void givenMoodAnalyzer_WhenMessageEmpty_ShouldThrowsException() {
+        try {
+            moodAnalyzer = new MoodAnalyzer();
+            result = moodAnalyzer.analyzeMood(" ");
+        }
+        catch (MoodAnalysisException e) {
+            Assert.assertEquals("Please provide proper message", e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenMoodAnalyzer_WhenProper_ShouldReturnObject() throws MoodAnalysisException {
+        moodAnalyzer = new MoodAnalyzer();
+        MoodAnalyzer moodAanayzerObject = MoodAnalyzerFactory.createMoodAanayzerObject();
+        boolean result = moodAnalyzer.equals(moodAanayzerObject);
+        Assert.assertEquals(true, result);
+    }
+
+    @Test
+    public void givenClassName_WhenImproper_ShouldthrowMoodAnalysis() {
+        try {
+            MoodAnalyzer moodAnalyzerObject = MoodAnalyzerFactory.createMoodAanayzerObject();
+        }
+        catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.type);
+        }
+    }
 }
